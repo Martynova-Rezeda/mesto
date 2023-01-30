@@ -4,11 +4,11 @@
 	background-position: center;
 	min-height: 19px;
 	min-width: 22px;
-	background-color:#FFFFFF;
+	background-color: #FFFFFF;
 	border: none;
 	cursor: pointer;
 }
 
 .element__button-like:hover {
-		opacity: 0.5;
-	}
+	opacity: 0.5;
+}

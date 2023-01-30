@@ -26,10 +26,11 @@ const handleFormSubmit = (evt) => {
 popupElem.addEventListener('submit', handleFormSubmit);
 
 
-buttonOpenElem.addEventListener('click', () =>
-{popupName.value=profileInfoTitle.textContent;
-popupProfession.value=profileInfoSubtitle.textContent;
-handlebuttonOpenElemClick();});
+buttonOpenElem.addEventListener('click', () => {
+	popupName.value=profileInfoTitle.textContent;
+	popupProfession.value=profileInfoSubtitle.textContent;
+	handlebuttonOpenElemClick();
+});
 
 buttonCloseElem.addEventListener('click', handlebuttonCloseElemClick);
 buttonOpenElem.addEventListener('submit', handleFormSubmit);
