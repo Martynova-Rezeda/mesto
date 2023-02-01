@@ -12,8 +12,8 @@
 	align-self: flex-end;
 	box-sizing: border-box;
 	padding: 0;
-	top: -42px;
-	right: -44px;
+	top: -41px;
+	right: -40px;
 }
 
 .popup__button-close:hover {
@@ -24,7 +24,7 @@
 .popup__button-close {
 	min-width: 20px;
 	min-height: 20px;
-	top: -41px;
+	top: -35px;
 	right: 0;
 }
 }

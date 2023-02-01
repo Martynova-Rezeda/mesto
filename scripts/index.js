@@ -1,13 +1,14 @@
+/*Oбъявляем переменные*/
 const buttonOpenElem = document.querySelector('.profile__button-edit');
 const popupElem = document.querySelector('.popup');
 const buttonCloseElem = document.querySelector('.popup__button-close');
 let popupInfo = document.querySelector('.popup__content');
-let popupName = document.querySelector('.popup__field_name');
-let popupProfession = document.querySelector('.popup__field_profession');
+let popupName = document.querySelector('.popup__field_type_username');
+let popupProfession = document.querySelector('.popup__field_type_profession');
 let profileInfoTitle = document.querySelector('.profile__info-title');
 let profileInfoSubtitle = document.querySelector('.profile__info-subtitle');
 
-
+/*Задаем функции открытия и закрытия модального окна*/
 const handlebuttonOpenElemClick = () => {
 	popupElem.classList.add('popup_opened');
 }
@@ -16,6 +17,7 @@ const handlebuttonCloseElemClick = () => {
 	popupElem.classList.remove('popup_opened');
 }
 
+/*Прописываем функции-обработчики событий*/
 const handleFormSubmit = (evt) => {
 	evt.preventDefault();
 	profileInfoTitle.textContent=popupName.value;
@@ -23,18 +25,15 @@ const handleFormSubmit = (evt) => {
 	handlebuttonCloseElemClick();
 }
 
-popupElem.addEventListener('submit', handleFormSubmit);
-
-
-buttonOpenElem.addEventListener('click', () => {
+const handleInsertProfile = (evt) => {
 	popupName.value=profileInfoTitle.textContent;
 	popupProfession.value=profileInfoSubtitle.textContent;
 	handlebuttonOpenElemClick();
-});
+}
 
+/*прописываем реакции модального окна на действия пользователя*/
 buttonCloseElem.addEventListener('click', handlebuttonCloseElemClick);
-buttonOpenElem.addEventListener('submit', handleFormSubmit);
-
-
+popupInfo.addEventListener('submit', handleFormSubmit);
+buttonOpenElem.addEventListener('click', handleInsertProfile);
 
 

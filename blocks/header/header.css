@@ -6,13 +6,12 @@
 	box-sizing: border-box;
 	padding-top: 45px;
 	margin: 0 auto;
-	border-bottom: 1px solid #545454;
+	border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
 @media screen and (max-width: 950px) and (min-width: 650px) {
 .header {
 	max-width: 600px;
-	border-bottom: 1px solid #545454;
 }
 }
 
@@ -20,6 +19,5 @@
 .header {
 	max-width: 320px;
 	padding-top: 28px;
-	border-bottom: 1px solid #545454;
 }
 }
