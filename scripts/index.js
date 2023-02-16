@@ -21,7 +21,7 @@ const buttonCloseElemCard = document.querySelector('.popup__button-close-card');
 const popupCardImage = document.querySelector('.popup__card-image');
 const popupCardTitle = document.querySelector('.popup__card-title');
 const buttonLikeElement = document.querySelector('.element__button-like');
-const popupCard = document.querySelector('.popup__card');
+const popupCard = document.querySelector('.popup-card');
 
 const initialCards = [
   {
