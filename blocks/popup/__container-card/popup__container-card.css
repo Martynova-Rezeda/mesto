@@ -1,0 +1,8 @@
+.popup__container-card {
+	max-width: 100vh;
+	max-height: 540px;
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	gap: 10px;
+}
