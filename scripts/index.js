@@ -91,7 +91,7 @@ buttonCloseElemEdit.addEventListener('click', function () {
 
 // создание карточки и попапа карточки
 const createPlaceCard = function (elements) {
-  const cardElement = cardsTemplate.querySelector('.element').cloneNode(true);
+  const cardElement = cardsTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.element__image');
   cardImage.src = elements.link;
   cardImage.alt = elements.name;
