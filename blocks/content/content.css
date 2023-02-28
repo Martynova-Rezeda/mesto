@@ -1,3 +1,4 @@
 .content {
-	display: block;
+  display: block;
+  position: relative;
 }

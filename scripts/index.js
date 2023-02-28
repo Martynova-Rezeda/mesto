@@ -7,6 +7,7 @@ const popupName = document.querySelector('.popup__field_type_username');
 const popupProfession = document.querySelector('.popup__field_type_profession');
 const profileInfoTitle = document.querySelector('.profile__info-title');
 const profileInfoSubtitle = document.querySelector('.profile__info-subtitle');
+const buttonElement = document.querySelector('.popup__button-save');
 
 /*Переменные попапа добавления карточек*/
 const buttonCloseElemAdd = document.querySelector('.popup__button-close-add');
@@ -53,14 +54,33 @@ const initialCards = [
   },
 ];
 
-// Функция открытия popup
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-}
+import { activeBtnElem } from './validate.js';
+import { enableValidationObj } from './validate.js';
+
+//Закрытие popup кликом на esc
+const closePopupWithEsc = (event) => {
+  if (event.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+};
+
+//Функция закрытия popup кликом по оверлей
+const closePopupWithOverlay = (evt) => {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target);
+  }
+};
 
 // Функция закрытия popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+}
+
+// Функция открытия popup
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupWithEsc);
 }
 
 // Заполнение popup профиля и отправка данных
@@ -75,6 +95,7 @@ const handleEditFormSubmit = (evt) => {
 const handleProfileFormSubmit = (evt) => {
   popupName.value = profileInfoTitle.textContent;
   popupProfession.value = profileInfoSubtitle.textContent;
+  activeBtnElem(buttonElement, enableValidationObj);
   openPopup(popupEdit);
 };
 
@@ -83,6 +104,9 @@ const handlelikeCard = function (evt) {
   evt.target.classList.toggle('element__button-like_active');
 };
 
+popupEdit.addEventListener('click', closePopupWithOverlay);
+popupAdd.addEventListener('click', closePopupWithOverlay);
+popupCard.addEventListener('click', closePopupWithOverlay);
 buttonOpenElem.addEventListener('click', handleProfileFormSubmit);
 popupEditForm.addEventListener('submit', handleEditFormSubmit);
 buttonCloseElemEdit.addEventListener('click', function () {
