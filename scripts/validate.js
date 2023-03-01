@@ -1,4 +1,4 @@
-const enableValidationObj = {
+export const enableValidationObj = {
   formSelector: '.popup__content',
   inputSelector: '.popup__field',
   submitButtonSelector: '.popup__button-save',
@@ -6,7 +6,6 @@ const enableValidationObj = {
   inputErrorClass: 'popup__field_type_error',
   errorClass: 'popup__input-error',
 };
-export { enableValidationObj };
 
 //Функция добавления класса с ошибкой
 const showInputError = (formElement, inputElement, errorMessage, object) => {
@@ -36,6 +35,7 @@ const disableBtnElem = (buttonElement, object) => {
   buttonElement.classList.add(object.inactiveButtonClass);
   buttonElement.disabled = true;
 };
+export { disableBtnElem };
 
 //Функция, отвечающая за создание активной кнопки отправки
 const activeBtnElem = (buttonElement, object) => {

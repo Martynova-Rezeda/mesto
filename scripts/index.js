@@ -27,35 +27,10 @@ const cardsTemplate = document
   .querySelector('#cards-template')
   .content.querySelector('.element');
 const cardsContainer = document.querySelector('.elements');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
 
 import { activeBtnElem } from './validate.js';
 import { enableValidationObj } from './validate.js';
+import { disableBtnElem } from './validate.js';
 
 //Закрытие popup кликом на esc
 const closePopupWithEsc = (event) => {
@@ -75,6 +50,7 @@ const closePopupWithOverlay = (evt) => {
 // Функция закрытия popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupWithEsc);
 }
 
 // Функция открытия popup
@@ -141,6 +117,7 @@ const createPlaceCard = function (elements) {
 const handleAddPopupOpen = () => {
   openPopup(popupAdd);
   popupAddForm.reset();
+  disableBtnElem(buttonElement, enableValidationObj);
 };
 
 // Закрытие попапа карточки
