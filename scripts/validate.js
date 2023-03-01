@@ -35,15 +35,12 @@ const disableBtnElem = (buttonElement, object) => {
   buttonElement.classList.add(object.inactiveButtonClass);
   buttonElement.disabled = true;
 };
-export { disableBtnElem };
 
 //Функция, отвечающая за создание активной кнопки отправки
 const activeBtnElem = (buttonElement, object) => {
   buttonElement.classList.remove(object.inactiveButtonClass);
   buttonElement.disabled = false;
 };
-//Экспорт функции активации кнопки отправки
-export { activeBtnElem };
 
 //Функция для смены состояния кнопки отправки
 const toggleButtonState = (inputList, buttonElement, object) => {
@@ -84,7 +81,7 @@ const setEventListeners = (formElement, object) => {
 };
 
 //Добавляем обработчик всем формам
-const enableValidation = (object) => {
+export const enableValidation = (object) => {
   const formList = Array.from(document.querySelectorAll(object.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {

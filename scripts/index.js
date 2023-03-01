@@ -1,3 +1,6 @@
+import { enableValidation } from './validate.js';
+import { enableValidationObj } from './validate.js';
+
 /*Переменные профиля*/
 const buttonCloseElemEdit = document.querySelector('.popup__button-close-edit');
 const buttonOpenElem = document.querySelector('.profile__button-edit');
@@ -7,7 +10,6 @@ const popupName = document.querySelector('.popup__field_type_username');
 const popupProfession = document.querySelector('.popup__field_type_profession');
 const profileInfoTitle = document.querySelector('.profile__info-title');
 const profileInfoSubtitle = document.querySelector('.profile__info-subtitle');
-const buttonElement = document.querySelector('.popup__button-save');
 
 /*Переменные попапа добавления карточек*/
 const buttonCloseElemAdd = document.querySelector('.popup__button-close-add');
@@ -21,16 +23,11 @@ const cardLink = document.querySelector('.popup__field_type_picturelink');
 const buttonCloseElemCard = document.querySelector('.popup__button-close-card');
 const popupCardImage = document.querySelector('.popup__card-image');
 const popupCardTitle = document.querySelector('.popup__card-title');
-const buttonLikeElement = document.querySelector('.element__button-like');
 const popupCard = document.querySelector('.popup-card');
 const cardsTemplate = document
   .querySelector('#cards-template')
   .content.querySelector('.element');
 const cardsContainer = document.querySelector('.elements');
-
-import { activeBtnElem } from './validate.js';
-import { enableValidationObj } from './validate.js';
-import { disableBtnElem } from './validate.js';
 
 //Закрытие popup кликом на esc
 const closePopupWithEsc = (event) => {
@@ -68,11 +65,11 @@ const handleEditFormSubmit = (evt) => {
 };
 
 // Функция извлечения показателей из попапа профиля
-const handleProfileFormSubmit = (evt) => {
+const handleExtractionProfileForm = (evt) => {
   popupName.value = profileInfoTitle.textContent;
   popupProfession.value = profileInfoSubtitle.textContent;
-  activeBtnElem(buttonElement, enableValidationObj);
   openPopup(popupEdit);
+  enableValidation(enableValidationObj);
 };
 
 // Задаем функцию лайка
@@ -83,19 +80,28 @@ const handlelikeCard = function (evt) {
 popupEdit.addEventListener('click', closePopupWithOverlay);
 popupAdd.addEventListener('click', closePopupWithOverlay);
 popupCard.addEventListener('click', closePopupWithOverlay);
-buttonOpenElem.addEventListener('click', handleProfileFormSubmit);
+buttonOpenElem.addEventListener('click', handleExtractionProfileForm);
 popupEditForm.addEventListener('submit', handleEditFormSubmit);
 buttonCloseElemEdit.addEventListener('click', function () {
   closePopup(popupEdit);
 });
 
+//Открытие попапа картинки
+
+const openPopupImage = function (data) {
+  popupCardImage.src = data.link;
+  popupCardImage.alt = data.link;
+  popupCardTitle.textContent = data.name;
+  openPopup(popupCard);
+};
+
 // создание карточки и попапа карточки
-const createPlaceCard = function (elements) {
+const createPlaceCard = function (data) {
   const cardElement = cardsTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.element__image');
-  cardImage.src = elements.link;
-  cardImage.alt = elements.name;
-  cardElement.querySelector('.element__title').textContent = elements.name;
+  cardImage.src = data.link;
+  cardImage.alt = data.name;
+  cardElement.querySelector('.element__title').textContent = data.name;
   cardElement
     .querySelector('.element__button-like')
     .addEventListener('click', handlelikeCard);
@@ -104,12 +110,7 @@ const createPlaceCard = function (elements) {
     .addEventListener('click', function () {
       cardElement.remove();
     });
-  cardImage.addEventListener('click', function () {
-    popupCardImage.src = elements.link;
-    popupCardImage.alt = elements.link;
-    popupCardTitle.textContent = elements.name;
-    openPopup(popupCard);
-  });
+  cardImage.addEventListener('click', () => openPopupImage(data));
   return cardElement;
 };
 
@@ -117,7 +118,7 @@ const createPlaceCard = function (elements) {
 const handleAddPopupOpen = () => {
   openPopup(popupAdd);
   popupAddForm.reset();
-  disableBtnElem(buttonElement, enableValidationObj);
+  enableValidation(enableValidationObj);
 };
 
 // Закрытие попапа карточки
@@ -126,25 +127,25 @@ buttonCloseElemCard.addEventListener('click', function () {
 });
 
 // Функция добавления новой карточки
-const handleAddNewCards = function (elements) {
-  cardsContainer.prepend(createPlaceCard(elements));
+const handleAddNewCards = function (data) {
+  cardsContainer.prepend(createPlaceCard(data));
 };
 
 // Заполнение popup добавления карточки и отправка данных
 const handleAddCard = function (evt) {
   evt.preventDefault();
-  const elements = {};
-  elements.link = cardLink.value;
-  elements.name = cardName.value;
-  handleAddNewCards(elements);
+  const data = {};
+  data.link = cardLink.value;
+  data.name = cardName.value;
+  handleAddNewCards(data);
   closePopup(popupAdd);
 };
 
 // Вывод массива карточек
-const cardList = initialCards.map(function (elements) {
-  return createPlaceCard(elements);
+const cardList = initialCards.map(function (data) {
+  cardsContainer.append(createPlaceCard(data));
+  return createPlaceCard(data);
 });
-cardsContainer.append(...cardList);
 
 popupAddForm.addEventListener('submit', handleAddCard);
 buttonAddElement.addEventListener('click', handleAddPopupOpen);
