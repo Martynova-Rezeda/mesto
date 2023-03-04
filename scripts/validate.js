@@ -1,12 +1,3 @@
-export const enableValidationObj = {
-  formSelector: '.popup__content',
-  inputSelector: '.popup__field',
-  submitButtonSelector: '.popup__button-save',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__field_type_error',
-  errorClass: 'popup__input-error',
-};
-
 //Функция добавления класса с ошибкой
 const showInputError = (formElement, inputElement, errorMessage, object) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -23,32 +14,13 @@ const hideInputError = (formElement, inputElement, object) => {
   errorElement.textContent = '';
 };
 
-//Функция поиска невалидных полей
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
-
-//Функция, отвечающая за создание неактивной кнопки отправки
-const disableBtnElem = (buttonElement, object) => {
-  buttonElement.classList.add(object.inactiveButtonClass);
-  buttonElement.disabled = true;
-};
-
-//Функция, отвечающая за создание активной кнопки отправки
-const activeBtnElem = (buttonElement, object) => {
-  buttonElement.classList.remove(object.inactiveButtonClass);
-  buttonElement.disabled = false;
-};
-
 //Функция для смены состояния кнопки отправки
-const toggleButtonState = (inputList, buttonElement, object) => {
-  if (hasInvalidInput(inputList)) {
-    disableBtnElem(buttonElement, object);
-  } else {
-    activeBtnElem(buttonElement, object);
-  }
+export const toggleButtonState = (formElement, object) => {
+  const buttonSubmit = formElement.querySelector(object.submitButtonSelector);
+  const isFormValid = formElement.checkValidity();
+  buttonSubmit.disabled = !isFormValid;
+  console.log(!isFormValid);
+  buttonSubmit.classList.toggle(object.inactiveButtonClass, !isFormValid);
 };
 
 //Функция проверки поля на валидность
@@ -70,12 +42,11 @@ const setEventListeners = (formElement, object) => {
   const inputList = Array.from(
     formElement.querySelectorAll(object.inputSelector)
   );
-  const buttonElement = formElement.querySelector(object.submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, object);
+  toggleButtonState(formElement, object);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       isValid(formElement, inputElement, object);
-      toggleButtonState(inputList, buttonElement, object);
+      toggleButtonState(formElement, object);
     });
   });
 };
@@ -90,4 +61,5 @@ export const enableValidation = (object) => {
     setEventListeners(formElement, object);
   });
 };
+
 enableValidation(enableValidationObj);

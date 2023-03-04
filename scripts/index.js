@@ -1,5 +1,4 @@
-import { enableValidation } from './validate.js';
-import { enableValidationObj } from './validate.js';
+import { toggleButtonState } from './validate.js';
 
 /*Переменные профиля*/
 const buttonCloseElemEdit = document.querySelector('.popup__button-close-edit');
@@ -10,6 +9,7 @@ const popupName = document.querySelector('.popup__field_type_username');
 const popupProfession = document.querySelector('.popup__field_type_profession');
 const profileInfoTitle = document.querySelector('.profile__info-title');
 const profileInfoSubtitle = document.querySelector('.profile__info-subtitle');
+const popupField = document.querySelector('.popup__field');
 
 /*Переменные попапа добавления карточек*/
 const buttonCloseElemAdd = document.querySelector('.popup__button-close-add');
@@ -65,11 +65,11 @@ const handleEditFormSubmit = (evt) => {
 };
 
 // Функция извлечения показателей из попапа профиля
-const handleExtractionProfileForm = (evt) => {
+const openModalProfile = (evt) => {
+  openPopup(popupEdit);
   popupName.value = profileInfoTitle.textContent;
   popupProfession.value = profileInfoSubtitle.textContent;
-  openPopup(popupEdit);
-  enableValidation(enableValidationObj);
+  toggleButtonState(popupEditForm, enableValidationObj);
 };
 
 // Задаем функцию лайка
@@ -80,7 +80,7 @@ const handlelikeCard = function (evt) {
 popupEdit.addEventListener('click', closePopupWithOverlay);
 popupAdd.addEventListener('click', closePopupWithOverlay);
 popupCard.addEventListener('click', closePopupWithOverlay);
-buttonOpenElem.addEventListener('click', handleExtractionProfileForm);
+buttonOpenElem.addEventListener('click', openModalProfile);
 popupEditForm.addEventListener('submit', handleEditFormSubmit);
 buttonCloseElemEdit.addEventListener('click', function () {
   closePopup(popupEdit);
@@ -118,7 +118,7 @@ const createPlaceCard = function (data) {
 const handleAddPopupOpen = () => {
   openPopup(popupAdd);
   popupAddForm.reset();
-  enableValidation(enableValidationObj);
+  toggleButtonState(popupAddForm, enableValidationObj);
 };
 
 // Закрытие попапа карточки

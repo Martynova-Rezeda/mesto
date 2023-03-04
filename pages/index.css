@@ -30,7 +30,6 @@
 @import url(../blocks/popup/__field/_type/popup__field_type_error.css);
 @import url(../blocks/popup/__field/_type/popup__field_type_username.css);
 @import url(../blocks/popup/__field/_type/popup__field_type_profession.css);
-@import url(../blocks/popup/__field-error/_active/popup__field-error_active.css);
 @import url(../blocks/popup/__button-save/popup__button-save.css);
 @import url(../blocks/popup/__button/_disabled/popup__button_disabled.css);
 @import url(../blocks/elements/elements.css);

@@ -24,3 +24,12 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ];
+
+const enableValidationObj = {
+  formSelector: '.popup__content',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__field_type_error',
+  errorClass: 'popup__input-error',
+};
