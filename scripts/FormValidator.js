@@ -16,6 +16,9 @@ export class FormValidator {
     this._inactiveButtonClass = object.inactiveButtonClass;
     this._inputErrorClass = object.inputErrorClass;
     this._errorClass = object.errorClass;
+    this._buttonSubmit = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
   }
   //Метод добавления класса с ошибкой
   _showInputError(inputElement) {
@@ -37,9 +40,6 @@ export class FormValidator {
   }
   //Метод для смены состояния кнопки отправки
   _toggleButtonState() {
-    this._buttonSubmit = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
     this._isFormValid = this._formElement.checkValidity();
     this._buttonSubmit.disabled = !this._isFormValid;
     this._buttonSubmit.classList.toggle(

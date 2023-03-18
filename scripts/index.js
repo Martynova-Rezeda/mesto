@@ -98,12 +98,12 @@ buttonCloseElemCard.addEventListener('click', function () {
   closePopup(popupCard);
 });
 
-//Функция добавления новой карточки
-const handleAddNewCards = function (data) {
+//Функция создания новой карточки
+function createCard(data) {
   const card = new Card(data, '#cards-template', openPopupImage);
   const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
-};
+  return cardElement;
+}
 
 // Заполнение popup добавления карточки и отправка данных
 const handleAddCard = function (evt) {
@@ -111,7 +111,7 @@ const handleAddCard = function (evt) {
   const data = {};
   data.link = cardLink.value;
   data.name = cardName.value;
-  handleAddNewCards(data);
+  cardsContainer.prepend(createCard(data));
   closePopup(popupAdd);
 };
 
@@ -122,9 +122,7 @@ buttonCloseElemAdd.addEventListener('click', function () {
 });
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#cards-template', openPopupImage);
-  const cardElement = card.generateCard();
-  cardsContainer.append(cardElement);
+  cardsContainer.append(createCard(item));
 });
 
 const formProfileValidator = new FormValidator(
