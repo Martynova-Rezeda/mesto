@@ -27,7 +27,6 @@ export class FormValidator {
     );
     inputElement.classList.add(this._inputErrorClass);
     this._errorElement.textContent = inputElement.validationMessage;
-    console.log(inputElement);
   }
   //Метод удаления класса с ошибкой
   _hideInputError(inputElement) {
