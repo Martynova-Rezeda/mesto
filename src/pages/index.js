@@ -3,16 +3,11 @@ import './index.css';
 import {
   initialCards,
   buttonOpenElem,
-  popupEditProfile,
   popupEditForm,
   popupName,
   popupProfession,
-  profileInfoTitle,
-  profileInfoSubtitle,
   buttonAddElement,
-  popupAdd,
   popupAddForm,
-  popupCard,
 } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import {
@@ -26,8 +21,8 @@ import { UserInfo } from '../components/UserInfo.js';
 
 //Создание экземпляра класса UserInfo
 const userInfo = new UserInfo({
-  nameSelector: profileInfoTitle,
-  jobSelector: profileInfoSubtitle,
+  nameSelector: '.profile__info-title',
+  jobSelector: '.profile__info-subtitle',
 });
 
 // Открытие модального окна профиля, c заполнеными полями формы
@@ -40,25 +35,28 @@ const openEditProfile = () => {
 };
 
 //Заполнение формы данными
-const handleFormSubmit = (data) => {
+const handleProfileFormSubmit = (data) => {
   userInfo.setUserInfo(data);
   popupEdit.close();
 };
 
 //Создание экземпляра класса PopupWithForm для попапа профиля
-const popupEdit = new PopupWithForm(popupEditProfile, handleFormSubmit);
+const popupEdit = new PopupWithForm(
+  '.popup_edit-form',
+  handleProfileFormSubmit
+);
 popupEdit.setEventListeners();
 
 buttonOpenElem.addEventListener('click', openEditProfile);
 
 //Создание экземпляра класса PopupWithForm для попапа с картинкой
-const popupImage = new PopupWithImage(popupCard);
+const popupImage = new PopupWithImage('.popup-card');
 popupImage.setEventListeners();
 
 //Создание экземпляра класса Section для отрисовки массива карточек
 const cardList = new Section(
   {
-    items: initialCards.reverse(),
+    items: initialCards,
     renderer: (item) => {
       cardList.addItem(createCard(item));
     },
@@ -78,8 +76,7 @@ function createCard(item) {
 }
 //Заполнение формы создания карточки, отправка данных
 const handleSubmitCard = ({ name, link }) => {
-  createCard({ name, link });
-  cardList.addItem(createCard({ name, link }));
+  cardList.prependItem(createCard({ name, link }));
   popupAddCardForm.close();
   console.log({ name, link });
 };
@@ -90,16 +87,16 @@ function handleCardClick(name, link) {
 }
 
 //Создание экземпляра класса PopupWithForm для попапа добавления карточек
-const popupAddCardForm = new PopupWithForm(popupAdd, handleSubmitCard);
+const popupAddCardForm = new PopupWithForm('.popup_add-form', handleSubmitCard);
 popupAddCardForm.setEventListeners();
 
 //Открытие модального окна добавления карточек
-const handleAddCard = () => {
+const handleAddCardFormSubmit = () => {
   formCardValidator.disableValidation();
   popupAddCardForm.open();
 };
 
-buttonAddElement.addEventListener('click', handleAddCard);
+buttonAddElement.addEventListener('click', handleAddCardFormSubmit);
 
 //Создание экземпляра класса FormValidator для попапа профиля
 const formProfileValidator = new FormValidator(

@@ -1,9 +1,7 @@
 export class Popup {
   constructor(popupSelector) {
-    this._popup = popupSelector;
-    this._buttonCloseEdit = document.querySelector('.popup__button-close-edit');
-    this._buttonCloseAdd = document.querySelector('.popup__button-close-add');
-    this._buttonCloseCard = document.querySelector('.popup__button-close-card');
+    this._popup = document.querySelector(popupSelector);
+    this._popupBtnClose = this._popup.querySelector('.popup__button-close');
   }
   //Метод открытия попапа
   open() {
@@ -23,15 +21,10 @@ export class Popup {
   };
   //Метод добавления слушателя клика кнопке закрытия попапа и затемненой области вокруг попапа
   setEventListeners() {
-    this._buttonCloseEdit.addEventListener('click', () => {
+    this._popupBtnClose.addEventListener('click', () => {
       this.close();
     });
-    this._buttonCloseAdd.addEventListener('click', () => {
-      this.close();
-    });
-    this._buttonCloseCard.addEventListener('click', () => {
-      this.close();
-    });
+
     this._popup.addEventListener('click', (evt) => {
       if (evt.target.classList.contains('popup_opened')) {
         this.close();
