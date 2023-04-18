@@ -6,6 +6,7 @@ export class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popup.querySelector('.popup__content');
     this._inputList = Array.from(this._popup.querySelectorAll('.popup__field'));
+    this._buttonSubmit = this._popup.querySelector('.popup__button-save');
   }
 
   //Метод сбора данных  всех полей формы
@@ -16,6 +17,7 @@ export class PopupWithForm extends Popup {
     });
     return this._formValues;
   }
+
   // Метод закрытия  и сброса формы
   close() {
     super.close();
@@ -29,5 +31,14 @@ export class PopupWithForm extends Popup {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });
+  }
+
+  //Метод для отрисовки загрузки
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._buttonSubmit.textContent = 'Cохранение...';
+    } else {
+      this._buttonSubmit.textContent = 'Cохранить';
+    }
   }
 }

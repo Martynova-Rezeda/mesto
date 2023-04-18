@@ -7,10 +7,10 @@ export class PopupWithImage extends Popup {
     this._popupCardTitle = this._popup.querySelector('.popup__card-title');
   }
   //метод открытия попапа картинки
-  open(name, link) {
+  open(data) {
     super.open();
-    this._popupCardTitle.textContent = name;
-    this._popupCardImage.alt = name;
-    this._popupCardImage.src = link;
+    this._popupCardImage.src = data.link;
+    this._popupCardImage.alt = data.name;
+    this._popupCardTitle.textContent = data.name;
   }
 }

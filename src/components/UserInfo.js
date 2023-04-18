@@ -1,7 +1,8 @@
 export class UserInfo {
-  constructor({ nameSelector, jobSelector }) {
+  constructor({ nameSelector, jobSelector, avatarSelector }) {
     this._name = document.querySelector(nameSelector);
     this._job = document.querySelector(jobSelector);
+    this._avatar = document.querySelector(avatarSelector);
   }
   //Метод возвращения объекта с данными пользователя
   getUserInfo() {
@@ -14,6 +15,12 @@ export class UserInfo {
   // Метод добавления новых данных на страницу
   setUserInfo(userInfo) {
     this._name.textContent = userInfo.name;
-    this._job.textContent = userInfo.job;
+    this._job.textContent = userInfo.about;
+    this._avatar.src = userInfo.avatar;
+    this._id = userInfo._id;
+  }
+
+  getUserId() {
+    return this._id;
   }
 }
