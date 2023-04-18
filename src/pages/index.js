@@ -31,7 +31,7 @@ const userInfo = new UserInfo({
 });
 
 //Создание экземпляра класса PopupWithConfirmation для попапа удаления карточки
-const popupDeleteCard = new PopupWithConfirmation('.popup_delete-card');
+const popupDeleteCard = new PopupWithConfirmation('.popup-delete-card');
 popupDeleteCard.setEventListeners();
 
 //Создание экземпляра класса PopupWithForm для попапа с картинкой
