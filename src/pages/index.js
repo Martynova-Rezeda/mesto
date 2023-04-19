@@ -63,14 +63,18 @@ const createCard = (data) => {
         if (isLike) {
           api
             .removeLike(card.getId())
-            .then(card.handleDeleteLikeCard())
+            .then((res) => {
+              card.handleLikeCard(res.likes.length);
+            })
             .catch((error) => {
               console.log(`Ошибка ${error} при попытке удаления лайка`);
             });
         } else {
           api
             .addLike(card.getId())
-            .then(card.handleLikeCard())
+            .then((res) => {
+              card.handleLikeCard(res.likes.length);
+            })
             .catch((error) => {
               console.log(`Ошибка ${error} при попытке поставить лайк`);
             });
@@ -120,7 +124,7 @@ const openEditProfile = () => {
 
 //Заполнение формы  профиля данными, отправка данных
 const handleProfileFormSubmit = (data) => {
-  popupEdit.renderLoading(true);
+  popupEdit.renderLoading('Сохранение...');
   api
     .updateUserProfile(data)
     .then((data) => {
@@ -132,7 +136,7 @@ const handleProfileFormSubmit = (data) => {
       console.log(error);
     })
     .finally(() => {
-      popupEdit.renderLoading(false);
+      popupEdit.renderLoading('Сохранить');
     });
 };
 
@@ -148,18 +152,18 @@ buttonOpenElem.addEventListener('click', openEditProfile);
 
 //Заполнение формы создания карточки, отправка данных
 const handleSubmitCard = (data) => {
-  popupAddCardForm.renderLoading(true);
+  popupAddCardForm.renderLoading('Создание...');
   api
     .addNewCard(data)
     .then((data) => {
       cardList.prependItem(createCard(data));
+      popupAddCardForm.close();
     })
     .catch((error) =>
       console.log(`Ошибка ${error} при попытке создания карточки`)
     )
     .finally(() => {
-      popupAddCardForm.renderLoading(false);
-      popupAddCardForm.close();
+      popupAddCardForm.renderLoading('Создать');
     });
 };
 
@@ -177,18 +181,18 @@ buttonAddElement.addEventListener('click', handleAddCardFormSubmit);
 
 //Заполнение формы смены аватара, отправка данных
 const handleAvatarFormSubmit = (data) => {
-  popupUserAvatar.renderLoading(true);
+  popupUserAvatar.renderLoading('Сохранение...');
   api
     .updateUserAvatar(data)
     .then((data) => {
       usersAvatar.src = data.avatar;
+      popupUserAvatar.close();
     })
     .catch((error) => {
       console.log(error);
     })
     .finally(() => {
-      popupUserAvatar.renderLoading(false);
-      popupUserAvatar.close();
+      popupUserAvatar.renderLoading('Сохранить');
     });
 };
 //Создание экземпляра класса PopupWithForm для попапа смены аватара

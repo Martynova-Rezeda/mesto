@@ -60,15 +60,10 @@ export class Card {
     return this._buttonLike.classList.contains('element__button-like_active');
   }
 
-  //Метод добавления лайка карточке и увеличение значения счетчика лайков
-  handleLikeCard() {
-    this._buttonLike.classList.add('element__button-like_active');
-    this._likeCounter.textContent = ++this._like;
-  }
-
-  handleDeleteLikeCard() {
-    this._buttonLike.classList.remove('element__button-like_active');
-    this._likeCounter.textContent = --this._like;
+  //Метод добавления/удаления лайка карточке и изменение значения счетчика лайков
+  handleLikeCard(quantity) {
+    this._buttonLike.classList.toggle('element__button-like_active');
+    this._likeCounter.textContent = quantity;
   }
 
   //Метод удаления карточки

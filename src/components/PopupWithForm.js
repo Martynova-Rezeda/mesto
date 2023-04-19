@@ -34,11 +34,7 @@ export class PopupWithForm extends Popup {
   }
 
   //Метод для отрисовки загрузки
-  renderLoading(isLoading) {
-    if (isLoading) {
-      this._buttonSubmit.textContent = 'Cохранение...';
-    } else {
-      this._buttonSubmit.textContent = 'Cохранить';
-    }
+  renderLoading(text) {
+    this._buttonSubmit.textContent = text;
   }
 }
